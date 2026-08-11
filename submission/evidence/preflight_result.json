@@ -1,0 +1,55 @@
+{
+  "ready_to_submit": true,
+  "blocking": 0,
+  "warnings": 0,
+  "checks": [
+    {
+      "name": "Python version",
+      "ok": true,
+      "required": true,
+      "detail": "đang dùng 3.12.5, yêu cầu >= 3.11"
+    },
+    {
+      "name": "Dependencies",
+      "ok": true,
+      "required": true,
+      "detail": "9 package bắt buộc đã cài"
+    },
+    {
+      "name": "File .env",
+      "ok": true,
+      "required": true,
+      "detail": "app env = dev, log = data/logs.jsonl"
+    },
+    {
+      "name": "Langfuse config",
+      "ok": true,
+      "required": true,
+      "detail": "host https://cloud.langfuse.com, prompt day13-chat@production"
+    },
+    {
+      "name": "File bắt buộc",
+      "ok": true,
+      "required": true,
+      "detail": "11 file/thư mục đầy đủ"
+    },
+    {
+      "name": "Vệ sinh secret",
+      "ok": true,
+      "required": true,
+      "detail": ".env và .venv không nằm trong Git index"
+    },
+    {
+      "name": "Log file",
+      "ok": true,
+      "required": true,
+      "detail": "21 dòng trong logs.jsonl"
+    },
+    {
+      "name": "API /health",
+      "ok": true,
+      "required": true,
+      "detail": "ok, tracing bật, không incident nào bật"
+    }
+  ]
+}
