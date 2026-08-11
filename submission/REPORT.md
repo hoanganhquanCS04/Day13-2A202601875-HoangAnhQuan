@@ -4,28 +4,27 @@
 
 - **Tên nhóm:** `B4_E402`
 - **Repository URL:** https://github.com/hoanganhquanCS04/Day13-2A202601875-HoangAnhQuan.git
-- **Nhánh làm việc:** `quan-branch`
-- **Commit SHA cuối:** `d436f8a` *(cập nhật lại sau khi merge và push)*
+- **Commit SHA cuối:** `cd84f4f91f5dd6a4b869c93d95eb7c85412409f3` *(cập nhật lại trước khi nộp)*
 - **Thành viên và vai trò:**
 
 | STT | Họ tên | MSSV | Vai trò | Phạm vi chính |
 |-----|--------|------|---------|---------------|
-| 1 | Hoàng Anh Quân | `2A202601875` | Setup & Integration Lead | Môi trường, Langfuse key, pytest, demo cuối |
-| 2 | Bùi Gia Huy | `2A202601879` | Logging & PII | Correlation ID, metadata log, redaction |
-| 3 | Nguyễn Huy Đức | `2A202601097` | Tracing & Prompt Versioning | Langfuse traces, prompt v1/v2, label/rollback |
-| 4 | Nguyễn Minh Hùng | `2A202601183` | Dashboard, SLO & Alerts | 6 panel, threshold, alert rules, runbook |
-| 5 | Phạm Hải Đăng | `2A202601367` | Incident, Report & Evidence | Challenge, điều tra root cause, gom evidence |
+| 1 | `Hoàng Anh Quân` | ` 2A202601875` | Setup & Integration Lead | Môi trường, Langfuse key, pytest, demo cuối |
+| 2 | `Bùi Gia Huy` | ` 2A202601879` | Logging & PII | Correlation ID, metadata log, redaction |
+| 3 | `Nguyễn Huy Đức` | ` 2A202601097` | Tracing & Prompt Versioning | Langfuse traces, prompt v1/v2, label/rollback |
+| 4 | `Nguyễn Minh Hùng` | `2A202601183` | Dashboard, SLO & Alerts | 6 panel, threshold, alert rules, runbook |
+| 5 | `Phạm Hải Đăng` | ` 2A202601367` | Incident, Report & Evidence | Challenge, điều tra root cause, gom evidence |
 
 ### Phân công theo checkpoint
 
 | Checkpoint | Thời gian | Người phụ trách | Đầu ra |
 |------------|-----------|-----------------|--------|
-| 0 — Setup & baseline | 0:00–0:30 | Hoàng Anh Quân | API `/health` ok, load test chạy được, baseline `validate_logs.py` |
-| 1 — Logging & PII | 0:30–1:30 | Bùi Gia Huy | Correlation ID, metadata, PII redaction; `validate_logs.py` ≥ 80/100 |
-| 2 — Traces & prompt | 1:30–2:30 | Nguyễn Huy Đức | ≥ 10 traces, prompt v1/v2, evidence rollback |
-| 2 — Dashboard & SLO | 1:30–2:30 | Nguyễn Minh Hùng | `validate_dashboard.py` 6/6 panel, ảnh dashboard, alert/runbook |
-| 3 — Challenge | 2:30–3:30 | Phạm Hải Đăng | Metrics → Traces → Logs → root cause |
-| 4 — Báo cáo & demo | 3:30–4:00 | Hoàng Anh Quân + Phạm Hải Đăng | Report hoàn chỉnh, demo, kiểm tra Git |
+| 0 — Setup & baseline | 0:00–0:30 | Người 1 | API `/health` ok, load test chạy được, baseline `validate_logs.py` |
+| 1 — Logging & PII | 0:30–1:30 | Người 2 | Correlation ID, metadata, PII redaction; `validate_logs.py` ≥ 80/100 |
+| 2 — Traces & prompt | 1:30–2:30 | Người 3 | ≥ 10 traces, prompt v1/v2, evidence rollback |
+| 2 — Dashboard & SLO | 1:30–2:30 | Người 4 | `validate_dashboard.py` 6/6 panel, ảnh dashboard, alert/runbook |
+| 3 — Challenge | 2:30–3:30 | Người 5 | Metrics → Traces → Logs → root cause |
+| 4 — Báo cáo & demo | 3:30–4:00 | Người 1 + 5 | Report hoàn chỉnh, demo, kiểm tra Git |
 
 ---
 
@@ -45,46 +44,20 @@
   - Công cụ dùng: `scripts/generate_dashboard.py` (HTML không dependency, đọc `data/logs.jsonl`)
   - Evidence: [`submission/evidence/dashboard_6panels.png`](evidence/dashboard_6panels.png)
 
-- **Kết quả `pytest`:** `35 passed`
-  - Lệnh: `python -m pytest -q`
-  - Evidence: [`submission/evidence/pytest_result.txt`](evidence/pytest_result.txt)
-
-- **Preflight môi trường:** `SẴN SÀNG — 8/8 hạng mục đạt`
-  - Lệnh: `python scripts/preflight.py --require-api`
-  - Evidence: [`submission/evidence/preflight_result.txt`](evidence/preflight_result.txt), [`submission/evidence/preflight_result.json`](evidence/preflight_result.json)
-
-### 2.1. Setup và baseline (Hoàng Anh Quân — Checkpoint 0)
-
-| Hạng mục | Kết quả | Evidence |
-|----------|---------|----------|
-| Python / dependencies | Python 3.12.5, 9 package bắt buộc đã cài | [`preflight_result.txt`](evidence/preflight_result.txt) |
-| `/health` | `ok: true`, `tracing_enabled: true`, không incident nào bật | [`health.json`](evidence/health.json) |
-| Metrics trước load test | `traffic: 0` (server vừa khởi động) | [`setup_metrics_before_baseline.json`](evidence/setup_metrics_before_baseline.json) |
-| Load test baseline | 10/10 request HTTP 200, `--concurrency 5` | [`load_test_baseline.txt`](evidence/load_test_baseline.txt) |
-| Metrics sau load test | P50 150 ms, P95 1049 ms, error 0, quality 0.88 | [`setup_metrics_after_baseline.json`](evidence/setup_metrics_after_baseline.json) |
-| Baseline `validate_logs.py` | 100/100 | [`validate_logs_result.txt`](evidence/validate_logs_result.txt) |
-| Vệ sinh Git | không track `.env`/`.venv`, không có key Langfuse | [`git_hygiene_check.txt`](evidence/git_hygiene_check.txt) |
-
 ### Kiểm tra trước nộp
 
 ```bash
-python scripts/preflight.py --require-api
 python -m pytest -q
 python scripts/validate_logs.py
 python scripts/validate_dashboard.py
 git status --short
 ```
 
-`scripts/preflight.py` gom các bước kiểm tra trong [SETUP.md](../SETUP.md) và
-[SUBMISSION.md](../SUBMISSION.md) thành một lệnh: phiên bản Python, dependencies, `.env`,
-cấu hình Langfuse, file bắt buộc, vệ sinh secret, log file và `/health`. Thoát mã `1` nếu
-còn hạng mục bắt buộc chưa đạt.
-
 ---
 
 ## 3. Logging và tracing
 
-### 3.1. Correlation ID (Bùi Gia Huy)
+### 3.1. Correlation ID (Người 2)
 
 **Triển khai:**
 
@@ -103,7 +76,7 @@ Client → CorrelationIdMiddleware (tạo/bind ID) → /chat handler (enrich con
 - Response header có `x-request-id`: [`submission/evidence/correlation_id_header.txt`](evidence/correlation_id_header.txt)
 - Cùng một `correlation_id` xuất hiện ở `request_received` và `response_sent`: `req-45071b35`
 
-### 3.2. PII redaction (Bùi Gia Huy)
+### 3.2. PII redaction (Người 2)
 
 **Triển khai:**
 
@@ -115,7 +88,7 @@ Client → CorrelationIdMiddleware (tạo/bind ID) → /chat handler (enrich con
 - Input thử nghiệm chứa email/phone/card → log chỉ còn `[REDACTED_*]`: [`submission/evidence/pii_redaction_log.jsonl`](evidence/pii_redaction_log.jsonl)
 - `validate_logs.py` báo `[PASSED] PII scrubbing`: [`submission/evidence/validate_logs_result.txt`](evidence/validate_logs_result.txt)
 
-### 3.3. Tracing (Nguyễn Huy Đức)
+### 3.3. Tracing (Người 3)
 
 **Evidence trace waterfall:**
 
@@ -138,7 +111,7 @@ Span **generation** (LLM) trong Langfuse ghi metadata `prompt_name`, `prompt_lab
 
 ## 4. Prompt versioning
 
-*(Nguyễn Huy Đức — theo [docs/PROMPT_VERSIONING.md](../docs/PROMPT_VERSIONING.md))*
+*(Người 3 — theo [docs/PROMPT_VERSIONING.md](../docs/PROMPT_VERSIONING.md))*
 
 - **Prompt name:** `day13-chat`
 - **Version/label baseline:** Version 3 — labels `baseline`, `production`
@@ -167,7 +140,7 @@ Span **generation** (LLM) trong Langfuse ghi metadata `prompt_name`, `prompt_lab
 
 ## 5. Dashboard, SLO và alerts
 
-*(Nguyễn Minh Hùng — theo [docs/DASHBOARD_SETUP.md](../docs/DASHBOARD_SETUP.md), contract [config/dashboard.yaml](../config/dashboard.yaml))*
+*(Người 4 — theo [docs/DASHBOARD_SETUP.md](../docs/DASHBOARD_SETUP.md), contract [config/dashboard.yaml](../config/dashboard.yaml))*
 
 ### 5.1. Dashboard
 
@@ -210,7 +183,7 @@ Span **generation** (LLM) trong Langfuse ghi metadata `prompt_name`, `prompt_lab
 
 ### 5.3. Alert rules và runbook
 
-*(Nguyễn Minh Hùng — [config/alert_rules.yaml](../config/alert_rules.yaml), [docs/alerts.md](../docs/alerts.md))*
+*(Người 4 — [config/alert_rules.yaml](../config/alert_rules.yaml), [docs/alerts.md](../docs/alerts.md))*
 
 #### Alert 1 — LatencyP95High
 
@@ -254,7 +227,7 @@ Runbook chi tiết: [docs/alerts.md](../docs/alerts.md)
 
 ## 6. Điều tra challenge
 
-*(Phạm Hải Đăng — challenge đã release: [config/challenge.json](../config/challenge.json))*
+*(Người 5 — challenge đã release: [config/challenge.json](../config/challenge.json))*
 
 - **Challenge ID:** `day13-k3-observability-v1`
 - **Cohort:** K3
@@ -326,11 +299,11 @@ Với mỗi thành viên, ghi rõ nhiệm vụ và link commit/PR tương ứng 
 
 | Thành viên | Phần việc | Commit/PR | Điều đã học |
 |------------|-----------|-----------|-------------|
-| Hoàng Anh Quân — Setup & Integration Lead | Virtualenv + `.env` Langfuse; chạy API và load test baseline (Checkpoint 0); viết [`scripts/preflight.py`](../scripts/preflight.py) và [`scripts/demo_e2e.py`](../scripts/demo_e2e.py) + 13 test đi kèm; `pytest -q` cuối buổi; kiểm tra vệ sinh Git; demo Metrics → Traces → Logs → Root cause theo [docs/DEMO_SCRIPT.md](../docs/DEMO_SCRIPT.md) | nhánh `quan-branch` | Bootstrapping môi trường observability, và việc gói các bước kiểm tra rời rạc thành một lệnh giúp phát hiện thiếu sót trước khi nộp thay vì lúc demo |
-| Bùi Gia Huy — Logging & PII | `app/middleware.py`, `app/main.py`, `app/logging_config.py`, `app/pii.py`; đạt `validate_logs.py` ≥ 80/100; evidence correlation ID & PII | `[commit/PR]` | Correlation ID phải clear/bind contextvars; PII scrub trước khi JSON render xuống file |
-| Nguyễn Huy Đức — Tracing & Prompt Versioning | Prompt `day13-chat` v1/v2 trên Langfuse; ≥ 10 traces; label promote + rollback; metadata `prompt_name/label/version` | `https://github.com/hoanganhquanCS04/Day13-2A202601875-HoangAnhQuan/pull/1` | Prompt versioning phục vụ truy xuất và rollback, không phải tối ưu chất lượng câu trả lời |
-| Nguyễn Minh Hùng — Dashboard, SLO & Alerts | Dashboard 6 panel từ `logs.jsonl`; `config/slo.yaml`; `config/alert_rules.yaml` + `docs/alerts.md`; practice `rag_slow` trên dashboard | `[commit/PR]` | Dashboard contract tách khỏi Langfuse; alert nên symptom-based gắn SLO, có runbook 3 bước |
-| Phạm Hải Đăng — Incident, Report & Evidence | Challenge `day13-k3-observability-v1`; điều tra root cause; hoàn thiện report & `submission/evidence/` | `[commit/PR]` | Chỉ kết luận root cause khi metric, trace và log cùng correlation ID khớp nhau |
+| `[TÊN 1]` — Setup & Integration Lead | Virtualenv, `.env` Langfuse, chạy API + load test baseline; `pytest -q` cuối buổi; demo Metrics → Traces → Logs → Root cause | `[commit/PR]` | Cách bootstrapping môi trường observability và kiểm tra end-to-end trước nộp |
+| `[TÊN 2]` — Logging & PII | `app/middleware.py`, `app/main.py`, `app/logging_config.py`, `app/pii.py`; đạt `validate_logs.py` ≥ 80/100; evidence correlation ID & PII | `[commit/PR]` | Correlation ID phải clear/bind contextvars; PII scrub trước khi JSON render xuống file |
+| `[TÊN 3]` — Tracing & Prompt Versioning | Prompt `day13-chat` v1/v2 trên Langfuse; ≥ 10 traces; label promote + rollback; metadata `prompt_name/label/version` | `https://github.com/hoanganhquanCS04/Day13-2A202601875-HoangAnhQuan/pull/1` | Prompt versioning phục vụ truy xuất và rollback, không phải tối ưu chất lượng câu trả lời |
+| `Nguyễn Minh Hùng` — Dashboard, SLO & Alerts | Dashboard 6 panel từ `logs.jsonl`; `config/slo.yaml`; `config/alert_rules.yaml` + `docs/alerts.md`; practice `rag_slow` trên dashboard | `f1a02e5` | Dashboard contract tách khỏi Langfuse; alert nên symptom-based gắn SLO, có runbook 3 bước |
+| `[TÊN 5]` — Incident, Report & Evidence | Challenge `day13-k3-observability-v1`; điều tra root cause; hoàn thiện report & `submission/evidence/` | `[commit/PR]` | Chỉ kết luận root cause khi metric, trace và log cùng correlation ID khớp nhau |
 
 ---
 
@@ -340,49 +313,26 @@ Theo [SUBMISSION.md](../SUBMISSION.md) và [docs/grading-evidence.md](../docs/gr
 
 | File | Mô tả | Người thu |
 |------|-------|-----------|
-| `health.json` | `/health` — tracing enabled, incident status | Hoàng Anh Quân |
-| `setup_metrics_before_baseline.json`, `setup_metrics_after_baseline.json` | Metrics trước/sau load test baseline (Checkpoint 0) | Hoàng Anh Quân |
-| `load_test_baseline.txt` | Load test baseline 10 request | Hoàng Anh Quân |
-| `pytest_result.txt` | Output `python -m pytest -q` (35 passed) | Hoàng Anh Quân |
-| `preflight_result.txt`, `preflight_result.json` | Output `scripts/preflight.py --require-api` | Hoàng Anh Quân |
-| `git_hygiene_check.txt` | Kiểm tra `.env`/key/PII trong Git trước khi nộp | Hoàng Anh Quân |
-| `demo_e2e_run.txt`, `demo_01…demo_10_*` | Toàn bộ lần chạy demo end-to-end | Hoàng Anh Quân |
-| `validate_logs_result.txt` | Output `validate_logs.py` | Bùi Gia Huy |
-| `validate_dashboard_result.txt` | Output `validate_dashboard.py` | Nguyễn Minh Hùng |
-| `correlation_id_log.jsonl`, `correlation_id_header.txt` | Log/header correlation ID | Bùi Gia Huy |
-| `pii_redaction_log.jsonl` | PII đã redact | Bùi Gia Huy |
-| `langfuse_trace_evidence.png`, `langfuse_trace_waterfall.json` | 20 traces + waterfall | Nguyễn Huy Đức |
-| `langfuse_trace_list.json` | 10 production + 10 candidate traces | Nguyễn Huy Đức |
-| `prompt_versions.json`, `prompt_label_promote.txt`, `prompt_label_rollback.txt` | Version/label/rollback | Nguyễn Huy Đức |
-| `dashboard_6panels.png` | Dashboard runtime | Nguyễn Minh Hùng |
-| `challenge_metrics_before.json`, `challenge_metrics_after.json` | Metric trước/sau incident | Phạm Hải Đăng |
-| `langfuse_challenge_traces.json`, `langfuse_challenge_trace_waterfall.json` | Trace challenge | Phạm Hải Đăng |
-| `challenge_log_line.jsonl` | Log line + correlation ID | Phạm Hải Đăng |
-| `challenge_investigation_summary.md` | Tóm tắt điều tra | Phạm Hải Đăng |
+| `validate_logs_result.txt` | Output `validate_logs.py` | Người 2 |
+| `validate_dashboard_result.txt` | Output `validate_dashboard.py` | Người 4 |
+| `correlation_id_log.jsonl`, `correlation_id_header.txt` | Log/header correlation ID | Người 2 |
+| `pii_redaction_log.jsonl` | PII đã redact | Người 2 |
+| `langfuse_trace_evidence.png`, `langfuse_trace_waterfall.json` | 20 traces + waterfall | Người 3 |
+| `langfuse_trace_list.json` | 10 production + 10 candidate traces | Người 3 |
+| `prompt_versions.json`, `prompt_label_promote.txt`, `prompt_label_rollback.txt` | Version/label/rollback | Người 3 |
+| `dashboard_6panels.png` | Dashboard runtime | Người 4 |
+| `challenge_metrics_before.json`, `challenge_metrics_after.json` | Metric trước/sau incident | Người 5 |
+| `langfuse_challenge_traces.json`, `langfuse_challenge_trace_waterfall.json` | Trace challenge | Người 5 |
+| `challenge_log_line.jsonl` | Log line + correlation ID | Người 5 |
+| `challenge_investigation_summary.md` | Tóm tắt điều tra | Người 5 |
 
 ---
 
-## Phụ lục — Demo script (3–5 phút, Hoàng Anh Quân)
+## Phụ lục — Demo script (3–5 phút, Người 1)
 
-Kịch bản đầy đủ kèm lời thoại: [docs/DEMO_SCRIPT.md](../docs/DEMO_SCRIPT.md).
-Chạy tự động trọn luồng bằng một lệnh:
-
-```bash
-python scripts/demo_e2e.py
-```
-
-Script đọc incident từ `config/challenge.json`, ghi evidence từng bước vào
-`submission/evidence/demo_*`, và **luôn tắt incident ở bước cuối** kể cả khi lỗi giữa chừng.
-Thoát mã `1` nếu P95 không vượt ngưỡng — dấu hiệu incident chưa bật đúng.
-
-| Bước | Nội dung | Số liệu thật của lần chạy đã lưu |
-|------|----------|----------------------------------|
-| 1 | **Health:** `GET /health` | `ok: true`, `tracing_enabled: true` |
-| 2 | **Metrics baseline:** load test + `GET /metrics` | P50 150 ms, P95 **1034 ms**, error 0, quality 0.88 |
-| 3 | **Incident:** bật `rag_slow` | `incidents.rag_slow: true` |
-| 4 | **Metrics triệu chứng:** load test challenge | P95 **2651 ms** > ngưỡng 2000 ms; P50, error rate, cost gần như không đổi |
-| 5 | **Trace → Log:** span retrieval chậm, ghép theo correlation ID | `req-29634285`, `feature=refund`, `session_id=k3-challenge-s03`, `latency_ms=2651` |
-| 6 | **Root cause + mitigation:** tắt incident, xác nhận phục hồi | request chậm nhất còn **150 ms** |
-
-Evidence toàn bộ lần chạy: [`submission/evidence/demo_e2e_run.txt`](evidence/demo_e2e_run.txt),
-tóm tắt máy đọc được: [`submission/evidence/demo_10_summary.json`](evidence/demo_10_summary.json).
+1. **Health:** `GET /health` — tracing enabled, incidents status.
+2. **Metrics baseline:** `GET /metrics` — P95, traffic, quality.
+3. **Trace:** Mở Langfuse — trace mẫu, chỉ metadata prompt version *(Người 3)*.
+4. **Log:** Một dòng `data/logs.jsonl` — correlation ID, không PII *(Người 2)*.
+5. **Dashboard:** 6 panel + threshold *(Người 4)*.
+6. **Incident:** Bật `rag_slow` → load test → metric/trace/log → root cause → disable *(Người 5)*.
