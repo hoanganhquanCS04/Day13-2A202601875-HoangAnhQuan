@@ -5,7 +5,7 @@
 [PASSED] Langfuse config: host https://cloud.langfuse.com, prompt day13-chat@production
 [PASSED] File bắt buộc: 11 file/thư mục đầy đủ
 [PASSED] Vệ sinh secret: .env và .venv không nằm trong Git index
-[PASSED] Log file: 21 dòng trong logs.jsonl
+[PASSED] Log file: 66 dòng trong logs.jsonl
 [PASSED] API /health: ok, tracing bật, không incident nào bật
 
 SẴN SÀNG: toàn bộ hạng mục đã đạt.

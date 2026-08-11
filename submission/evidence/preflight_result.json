@@ -43,7 +43,7 @@
       "name": "Log file",
       "ok": true,
       "required": true,
-      "detail": "21 dòng trong logs.jsonl"
+      "detail": "66 dòng trong logs.jsonl"
     },
     {
       "name": "API /health",

@@ -1,0 +1,10 @@
+[200] req-80f64547 | qa | 1953.6ms
+[200] req-e3cbbe01 | qa | 1955.3ms
+[200] req-3a78bb02 | qa | 1953.3ms
+[200] req-87624c08 | qa | 1954.1ms
+[200] req-405a3ff2 | summary | 1955.1ms
+[200] req-ca6dc4bd | summary | 154.7ms
+[200] req-7dc5b872 | qa | 773.9ms
+[200] req-f6cc5d65 | qa | 774.8ms
+[200] req-e8ccf0f0 | qa | 775.2ms
+[200] req-81550fa4 | qa | 775.0ms

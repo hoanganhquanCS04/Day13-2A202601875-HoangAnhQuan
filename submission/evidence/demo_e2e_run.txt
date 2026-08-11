@@ -1,0 +1,112 @@
+Challenge: day13-k3-observability-v1 | Cohort: K3
+Incident demo: rag_slow | feature: refund | ngưỡng: 2000 ms
+
+=== Bước 1: Health — API và tracing đã sẵn sàng ===
+{
+  "ok": true,
+  "tracing_enabled": true,
+  "incidents": {
+    "rag_slow": false,
+    "tool_fail": false,
+    "cost_spike": false
+  }
+}
+    -> evidence: submission/evidence/demo_01_health.json
+
+=== Bước 2: Metrics baseline — trạng thái bình thường ===
+[200] req-80f64547 | qa | 1953.6ms
+[200] req-e3cbbe01 | qa | 1955.3ms
+[200] req-3a78bb02 | qa | 1953.3ms
+[200] req-87624c08 | qa | 1954.1ms
+[200] req-405a3ff2 | summary | 1955.1ms
+[200] req-ca6dc4bd | summary | 154.7ms
+[200] req-7dc5b872 | qa | 773.9ms
+[200] req-f6cc5d65 | qa | 774.8ms
+[200] req-e8ccf0f0 | qa | 775.2ms
+[200] req-81550fa4 | qa | 775.0ms
+    -> evidence: submission/evidence/demo_02_load_baseline.txt
+{
+  "traffic": 10,
+  "latency_p50": 150.0,
+  "latency_p95": 1034.0,
+  "latency_p99": 1034.0,
+  "avg_cost_usd": 0.002,
+  "total_cost_usd": 0.0202,
+  "tokens_in_total": 440,
+  "tokens_out_total": 1259,
+  "error_breakdown": {},
+  "quality_avg": 0.88
+}
+    -> evidence: submission/evidence/demo_03_metrics_baseline.json
+
+=== Bước 3: Bật incident `rag_slow` — mô phỏng sự cố production ===
+{
+  "ok": true,
+  "incidents": {
+    "rag_slow": true,
+    "tool_fail": false,
+    "cost_spike": false
+  }
+}
+    -> evidence: submission/evidence/demo_04_incident_enable.json
+
+=== Bước 4: Metrics — triệu chứng: latency P95 vượt ngưỡng ===
+Challenge: day13-k3-observability-v1 | Cohort: K3
+[200] req-2c783b04 | refund | 7974.5ms
+[200] req-29634285 | refund | 10628.8ms
+[200] req-77fe26c9 | refund | 13286.3ms
+[200] req-9b56dcb6 | refund | 13286.1ms
+[200] req-08f0c721 | refund | 13286.0ms
+    -> evidence: submission/evidence/demo_05_load_challenge.txt
+{
+  "traffic": 15,
+  "latency_p50": 150.0,
+  "latency_p95": 2651.0,
+  "latency_p99": 2651.0,
+  "avg_cost_usd": 0.002,
+  "total_cost_usd": 0.0298,
+  "tokens_in_total": 657,
+  "tokens_out_total": 1853,
+  "error_breakdown": {},
+  "quality_avg": 0.8733
+}
+    -> evidence: submission/evidence/demo_06_metrics_incident.json
+
+    P50: 150 ms -> 150 ms
+    P95: 1034 ms -> 2651 ms (ngưỡng 2000 ms)
+    P99: 1034 ms -> 2651 ms
+
+=== Bước 5: Logs — khoanh vùng request chậm nhất theo correlation ID ===
+    correlation_id = req-29634285 | feature = refund | latency_ms = 2651
+    session_id = k3-challenge-s03 | model = claude-sonnet-4-5
+    -> evidence: submission/evidence/demo_07_log_slowest.json
+
+=== Bước 6: Root cause và mitigation — tắt incident, xác nhận phục hồi ===
+{
+  "ok": true,
+  "incidents": {
+    "rag_slow": false,
+    "tool_fail": false,
+    "cost_spike": false
+  }
+}
+    -> evidence: submission/evidence/demo_08_incident_disable.json
+Challenge: day13-k3-observability-v1 | Cohort: K3
+[200] req-7c5b6a7d | refund | 626.5ms
+[200] req-f5ff321e | refund | 783.4ms
+[200] req-ff10ffb7 | refund | 783.2ms
+[200] req-c141940c | refund | 784.8ms
+[200] req-693ec084 | refund | 784.0ms
+    -> evidence: submission/evidence/demo_09_load_recovered.txt
+
+    Latency chậm nhất sau khi tắt incident: 150 ms
+    -> evidence: submission/evidence/demo_10_summary.json
+
+--- Kết luận demo ---
+Metrics: P95 1034 ms -> 2651 ms
+Traces:  span retrieval của feature `refund` chiếm phần lớn latency (xem Langfuse)
+Logs:    correlation_id req-29634285 có latency_ms = 2651
+Root cause: incident `rag_slow` làm chậm bước retrieval trước generation
+Mitigation: tắt incident -> latency chậm nhất còn 150 ms
+
+Tổng thời gian demo: 18.1s

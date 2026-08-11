@@ -80,6 +80,14 @@ submission/   báo cáo và evidence phải nộp
 - [docs/GUIDE.md](docs/GUIDE.md): gợi ý khi bị kẹt.
 - [docs/PROMPT_VERSIONING.md](docs/PROMPT_VERSIONING.md): version, label và rollback prompt.
 - [docs/DASHBOARD_SETUP.md](docs/DASHBOARD_SETUP.md): nguồn dữ liệu và cách kiểm tra dashboard.
+- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md): kịch bản demo cuối buổi và lệnh kiểm tra trước khi nộp.
+
+## Script bổ sung của nhóm
+
+| Lệnh | Dùng để |
+|---|---|
+| `python scripts/preflight.py --require-api` | Kiểm tra một lượt môi trường, `.env`, file bắt buộc, vệ sinh secret và `/health` trước khi demo hoặc nộp |
+| `python scripts/demo_e2e.py` | Chạy trọn luồng demo Metrics → Traces → Logs → Root cause và ghi evidence từng bước |
 
 ## Phân vai nhóm — tối đa 4 vai trò
 

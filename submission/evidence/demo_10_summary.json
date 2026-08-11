@@ -1,0 +1,33 @@
+{
+  "scenario": "rag_slow",
+  "latency_threshold_ms": 2000,
+  "metrics_baseline": {
+    "traffic": 10,
+    "latency_p50": 150.0,
+    "latency_p95": 1034.0,
+    "latency_p99": 1034.0,
+    "avg_cost_usd": 0.002,
+    "total_cost_usd": 0.0202,
+    "tokens_in_total": 440,
+    "tokens_out_total": 1259,
+    "error_breakdown": {},
+    "quality_avg": 0.88
+  },
+  "metrics_incident": {
+    "traffic": 15,
+    "latency_p50": 150.0,
+    "latency_p95": 2651.0,
+    "latency_p99": 2651.0,
+    "avg_cost_usd": 0.002,
+    "total_cost_usd": 0.0298,
+    "tokens_in_total": 657,
+    "tokens_out_total": 1853,
+    "error_breakdown": {},
+    "quality_avg": 0.8733
+  },
+  "p95_breached_threshold": true,
+  "slowest_correlation_id": "req-29634285",
+  "slowest_latency_ms": 2651,
+  "slowest_feature": "refund",
+  "slowest_latency_ms_after_disable": 150
+}

@@ -1,0 +1,26 @@
+{
+  "correlation_id": "req-29634285",
+  "feature": "refund",
+  "session_id": "k3-challenge-s03",
+  "latency_ms": 2651,
+  "record": {
+    "service": "api",
+    "latency_ms": 2651,
+    "tokens_in": 45,
+    "tokens_out": 131,
+    "cost_usd": 0.0021,
+    "quality_score": 0.8,
+    "payload": {
+      "answer_preview": "Starter answer. Teams should improve this output logic and add better quality ch..."
+    },
+    "event": "response_sent",
+    "model": "claude-sonnet-4-5",
+    "env": "dev",
+    "session_id": "k3-challenge-s03",
+    "correlation_id": "req-29634285",
+    "feature": "refund",
+    "user_id_hash": "b7fde6ae11b0",
+    "level": "info",
+    "ts": "2026-08-11T06:56:49.142559Z"
+  }
+}

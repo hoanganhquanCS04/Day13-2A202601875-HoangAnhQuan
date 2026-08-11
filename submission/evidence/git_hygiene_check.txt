@@ -1,0 +1,52 @@
+=== Kiem tra Git truoc khi nop (Nguoi 1 - Hoang Anh Quan) ===
+Branch: quan-branch
+Ngay chay: 2026-08-11T06:59:19Z
+
+--- 1. .env / .venv trong Git index ---
+PASSED: khong track .env hoac .venv
+
+--- 2. Langfuse key (pk-lf-/sk-lf-) trong file da track ---
+PASSED: khong tim thay key
+
+--- 3. PII trong submission/evidence ---
+Chi 1 ket qua: pii_test_request.json - input tong hop co chu y (a@b.com, so the test Visa 4111...)
+de chung minh redaction; log tuong ung trong pii_redaction_log.jsonl da la [REDACTED_*].
+submission/evidence/pii_test_request.json:1
+
+--- 4. validate_logs.py PII scan ---
+Potential PII leaks detected: 0
++ [PASSED] PII scrubbing
+
+--- 5. .gitignore ---
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/logs.jsonl
+data/audit.jsonl
+.env
+.pytest_cache/
+.antigravity/
+
+--- 6. git status --short ---
+ M submission/evidence/dashboard.html
+ M submission/evidence/preflight_result.json
+ M submission/evidence/preflight_result.txt
+ M submission/evidence/pytest_result.txt
+ M submission/evidence/validate_logs_result.txt
+?? docs/DEMO_SCRIPT.md
+?? scripts/demo_e2e.py
+?? submission/evidence/demo_01_health.json
+?? submission/evidence/demo_02_load_baseline.txt
+?? submission/evidence/demo_03_metrics_baseline.json
+?? submission/evidence/demo_04_incident_enable.json
+?? submission/evidence/demo_05_load_challenge.txt
+?? submission/evidence/demo_06_metrics_incident.json
+?? submission/evidence/demo_07_log_slowest.json
+?? submission/evidence/demo_08_incident_disable.json
+?? submission/evidence/demo_09_load_recovered.txt
+?? submission/evidence/demo_10_summary.json
+?? submission/evidence/demo_e2e_run.txt
+?? submission/evidence/git_hygiene_check.txt
+?? tests/test_demo_e2e.py
+(rong = sach)
