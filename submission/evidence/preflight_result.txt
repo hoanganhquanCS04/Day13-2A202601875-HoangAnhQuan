@@ -1,0 +1,11 @@
+--- Preflight Day 13 (Setup & Integration) ---
+[PASSED] Python version: đang dùng 3.12.5, yêu cầu >= 3.11
+[PASSED] Dependencies: 9 package bắt buộc đã cài
+[PASSED] File .env: app env = dev, log = data/logs.jsonl
+[PASSED] Langfuse config: host https://cloud.langfuse.com, prompt day13-chat@production
+[PASSED] File bắt buộc: 11 file/thư mục đầy đủ
+[PASSED] Vệ sinh secret: .env và .venv không nằm trong Git index
+[PASSED] Log file: 66 dòng trong logs.jsonl
+[PASSED] API /health: ok, tracing bật, không incident nào bật
+
+SẴN SÀNG: toàn bộ hạng mục đã đạt.

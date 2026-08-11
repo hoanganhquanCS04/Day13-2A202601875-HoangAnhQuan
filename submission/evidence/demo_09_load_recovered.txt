@@ -1,0 +1,6 @@
+Challenge: day13-k3-observability-v1 | Cohort: K3
+[200] req-7c5b6a7d | refund | 626.5ms
+[200] req-f5ff321e | refund | 783.4ms
+[200] req-ff10ffb7 | refund | 783.2ms
+[200] req-c141940c | refund | 784.8ms
+[200] req-693ec084 | refund | 784.0ms
