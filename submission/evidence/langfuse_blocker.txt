@@ -1,0 +1,6 @@
+﻿Langfuse tracing is configured and verified.
+- tracing_enabled=true
+- Prompt day13-chat labels/versions verified through the Langfuse API.
+- 20 traces captured: 10 production/version 3 and 10 candidate/version 4.
+- Production promote to version 4 and rollback to version 3 were executed and recorded.
+- Challenge traces captured for all five K3 refund sessions.
