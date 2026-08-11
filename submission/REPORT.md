@@ -302,7 +302,7 @@ Với mỗi thành viên, ghi rõ nhiệm vụ và link commit/PR tương ứng 
 | `[TÊN 1]` — Setup & Integration Lead | Virtualenv, `.env` Langfuse, chạy API + load test baseline; `pytest -q` cuối buổi; demo Metrics → Traces → Logs → Root cause | `[commit/PR]` | Cách bootstrapping môi trường observability và kiểm tra end-to-end trước nộp |
 | `[TÊN 2]` — Logging & PII | `app/middleware.py`, `app/main.py`, `app/logging_config.py`, `app/pii.py`; đạt `validate_logs.py` ≥ 80/100; evidence correlation ID & PII | `[commit/PR]` | Correlation ID phải clear/bind contextvars; PII scrub trước khi JSON render xuống file |
 | `[TÊN 3]` — Tracing & Prompt Versioning | Prompt `day13-chat` v1/v2 trên Langfuse; ≥ 10 traces; label promote + rollback; metadata `prompt_name/label/version` | `https://github.com/hoanganhquanCS04/Day13-2A202601875-HoangAnhQuan/pull/1` | Prompt versioning phục vụ truy xuất và rollback, không phải tối ưu chất lượng câu trả lời |
-| `[TÊN 4]` — Dashboard, SLO & Alerts | Dashboard 6 panel từ `logs.jsonl`; `config/slo.yaml`; `config/alert_rules.yaml` + `docs/alerts.md`; practice `rag_slow` trên dashboard | `[commit/PR]` | Dashboard contract tách khỏi Langfuse; alert nên symptom-based gắn SLO, có runbook 3 bước |
+| `Nguyễn Minh Hùng` — Dashboard, SLO & Alerts | Dashboard 6 panel từ `logs.jsonl`; `config/slo.yaml`; `config/alert_rules.yaml` + `docs/alerts.md`; practice `rag_slow` trên dashboard | `f1a02e5` | Dashboard contract tách khỏi Langfuse; alert nên symptom-based gắn SLO, có runbook 3 bước |
 | `[TÊN 5]` — Incident, Report & Evidence | Challenge `day13-k3-observability-v1`; điều tra root cause; hoàn thiện report & `submission/evidence/` | `[commit/PR]` | Chỉ kết luận root cause khi metric, trace và log cùng correlation ID khớp nhau |
 
 ---
