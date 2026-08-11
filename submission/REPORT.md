@@ -4,7 +4,8 @@
 
 - **Tên nhóm:** `B4_E402`
 - **Repository URL:** https://github.com/hoanganhquanCS04/Day13-2A202601875-HoangAnhQuan.git
-- **Commit SHA cuối:** `cd84f4f91f5dd6a4b869c93d95eb7c85412409f3` *(cập nhật lại trước khi nộp)*
+- **Nhánh làm việc:** `quan-branch`
+- **Commit SHA cuối:** `d436f8a` *(cập nhật lại sau khi merge và push)*
 - **Thành viên và vai trò:**
 
 | STT | Họ tên | MSSV | Vai trò | Phạm vi chính |
