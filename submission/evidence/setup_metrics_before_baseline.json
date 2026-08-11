@@ -1,0 +1,12 @@
+{
+    "traffic": 0,
+    "latency_p50": 0.0,
+    "latency_p95": 0.0,
+    "latency_p99": 0.0,
+    "avg_cost_usd": 0.0,
+    "total_cost_usd": 0,
+    "tokens_in_total": 0,
+    "tokens_out_total": 0,
+    "error_breakdown": {},
+    "quality_avg": 0.0
+}
